@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.7.RELEASE'
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
@@ -20,12 +20,23 @@ configurations {
 
 repositories {
 	mavenCentral()
+    maven { url "https://maven.vaadin.com/vaadin-addons" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.vaadin:vaadin-bom:14.3.2'
+    }
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'org.springframework:spring-web'
+//    implementation 'org.springframework:spring-webmvc'
+    implementation 'com.vaadin:vaadin-spring-boot-starter'
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
