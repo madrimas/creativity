@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/user")
+@RequestMapping(path = "/user")
 public class UserController {
 
 	@Autowired
@@ -18,6 +18,11 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable int id) {
 		return userRepository.findById(id);
+	}
+
+	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
+	public User getUserByLogin(@PathVariable String login) {
+		return userRepository.findByLogin(login);
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)

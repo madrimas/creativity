@@ -2,12 +2,9 @@ package com.madrimas.creativity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-@SpringBootApplication
+@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
 public class CreativityApplication {
 
 	public static void main(String[] args) {

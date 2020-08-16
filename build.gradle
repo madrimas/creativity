@@ -37,6 +37,8 @@ dependencies {
 //    implementation 'org.springframework:spring-web'
 //    implementation 'org.springframework:spring-webmvc'
     implementation 'com.vaadin:vaadin-spring-boot-starter'
+    implementation 'org.springframework.security:spring-security-web'
+    implementation 'org.springframework.security:spring-security-config'
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
