@@ -1,6 +1,7 @@
 package com.madrimas.creativity.ui.view;
 
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
@@ -46,7 +47,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 	}
 
 	private void register(ClickEvent<Button> buttonClickEvent) {
-		//TODO
+		UI.getCurrent().navigate(RegisterView.ROUTE);
 	}
 
 	@Override

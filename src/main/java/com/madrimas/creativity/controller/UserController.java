@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
@@ -30,8 +32,14 @@ public class UserController {
 		return userRepository.findAll();
 	}
 
-	@RequestMapping(value = "/userUpdate", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public User updateUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public User addUser(User user) {
+		user.setRegistrationDate(LocalDateTime.now());
 		return userRepository.save(user);
 	}
 }

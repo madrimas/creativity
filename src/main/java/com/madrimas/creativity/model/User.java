@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -34,9 +34,9 @@ public class User {
 	private String lastname;
 
 	@Column(name = "registration_date")
-	private Date registrationDate;
+	private LocalDateTime registrationDate;
 
 	@Column(name = "modification_date")
-	private Date modificationDate;
+	private LocalDateTime modificationDate;
 
 }
