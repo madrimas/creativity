@@ -1,6 +1,7 @@
 package com.madrimas.creativity.ui;
 
 import com.madrimas.creativity.ui.view.RecipesView;
+import com.madrimas.creativity.ui.view.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -38,7 +39,10 @@ public class MainLayout extends AppLayout {
 	private void createDrawer() {
 		RouterLink listLink = new RouterLink("List", RecipesView.class);
 		listLink.setHighlightCondition(HighlightConditions.sameLocation());
+		RouterLink userLink = new RouterLink("User", UserView.class);
+		userLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 		addToDrawer(new VerticalLayout(listLink));
+		addToDrawer(new VerticalLayout(userLink));
 	}
 }
