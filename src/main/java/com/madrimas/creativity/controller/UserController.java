@@ -34,6 +34,7 @@ public class UserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public User updateUser(User user) {
+		user.setModificationDate(LocalDateTime.now());
 		return userRepository.save(user);
 	}
 
