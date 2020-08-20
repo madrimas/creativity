@@ -4,6 +4,15 @@
    https://vaadin.com/themes/lumo for more information.
 */
 
+a[highlight] {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.header {
+    padding: 0 var(--lumo-space-m);
+}
+
 /* Recipes view */
 .recipes-view .content {
     display: flex;
