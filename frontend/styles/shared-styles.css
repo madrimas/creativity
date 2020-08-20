@@ -33,3 +33,23 @@ a[highlight] {
         display: none;
     }
 }
+
+.ingredients-view .content {
+    display: flex;
+}
+
+.ingredients-view .ingredient-grid {
+    flex: 1;
+}
+
+.ingredients-view .ingredient-form {
+    flex: 1;
+    padding: var(--lumo-space-m);
+}
+
+@media all and (max-width: 1100px) {
+    .ingredients-view.editing .toolbar,
+    .ingredients-view.editing .ingredient-grid {
+        display: none;
+    }
+}

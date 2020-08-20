@@ -1,5 +1,6 @@
 package com.madrimas.creativity.ui;
 
+import com.madrimas.creativity.ui.view.IngredientsView;
 import com.madrimas.creativity.ui.view.RecipesView;
 import com.madrimas.creativity.ui.view.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -40,8 +41,11 @@ public class MainLayout extends AppLayout {
 		listLink.setHighlightCondition(HighlightConditions.sameLocation());
 		RouterLink userLink = new RouterLink("User", UserView.class);
 		userLink.setHighlightCondition(HighlightConditions.sameLocation());
+		RouterLink ingredientsLink = new RouterLink("Ingredients", IngredientsView.class);
+		userLink.setHighlightCondition(HighlightConditions.sameLocation());
 
 		addToDrawer(new VerticalLayout(listLink));
 		addToDrawer(new VerticalLayout(userLink));
+		addToDrawer(new VerticalLayout(ingredientsLink));
 	}
 }
