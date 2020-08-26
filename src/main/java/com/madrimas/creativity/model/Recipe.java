@@ -14,10 +14,10 @@ import java.util.Set;
 @Getter @Setter @NoArgsConstructor
 public class Recipe {
 
-	interface DifficultyLevel {
-		int EASY = 1;
-		int MEDIUM = 2;
-		int HARD = 3;
+	public interface DifficultyLevel {
+		String EASY = "EASY";
+		String MEDIUM = "MEDIUM";
+		String HARD = "HARD";
 	}
 
 	@Id
@@ -29,10 +29,10 @@ public class Recipe {
 	private String title;
 
 	@Column(name = "difficulty")
-	private int difficulty;
+	private Integer difficulty;
 
 	@Column(name = "minutes")
-	private int minutes;
+	private Integer minutes;
 
 	@Column(name = "instruction")
 	private String instruction;
