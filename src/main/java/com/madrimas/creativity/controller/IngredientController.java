@@ -43,10 +43,10 @@ public class IngredientController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public Ingredient addIngredient(Ingredient recipe) {
-		recipe.setAuthor(userService.getCurrentUser());
-		recipe.setCreationDate(LocalDateTime.now());
-		return ingredientRepository.save(recipe);
+	public Ingredient addIngredient(Ingredient ingredient) {
+		ingredient.setAuthor(userService.getCurrentUser());
+		ingredient.setCreationDate(LocalDateTime.now());
+		return ingredientRepository.save(ingredient);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
