@@ -25,7 +25,7 @@ public class UserForm extends FormLayout {
 
 	Binder<User> binder = new BeanValidationBinder<>(User.class);
 
-	private User currentUser;
+	private final User currentUser;
 
 	public UserForm(User user) {
 		currentUser = user;
@@ -65,7 +65,7 @@ public class UserForm extends FormLayout {
 	}
 
 	public static abstract class UserFormEvent extends ComponentEvent<UserForm> {
-		private User user;
+		private final User user;
 
 		protected UserFormEvent(UserForm source, User user) {
 			super(source, false);

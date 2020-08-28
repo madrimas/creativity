@@ -28,7 +28,7 @@ public class RegisterForm extends FormLayout {
 
 	Binder<User> binder = new BeanValidationBinder<>(User.class);
 
-	private User newUser;
+	private final User newUser;
 
 	public RegisterForm() {
 		newUser = new User();
@@ -70,7 +70,7 @@ public class RegisterForm extends FormLayout {
 	}
 
 	public static abstract class UserFormEvent extends ComponentEvent<RegisterForm> {
-		private User user;
+		private final User user;
 
 		protected UserFormEvent(RegisterForm source, User user) {
 			super(source, false);

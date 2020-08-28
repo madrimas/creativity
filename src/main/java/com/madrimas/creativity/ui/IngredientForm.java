@@ -71,7 +71,7 @@ public class IngredientForm extends FormLayout {
 
 	// Events
 	public static abstract class IngredientFormEvent extends ComponentEvent<IngredientForm> {
-		private Ingredient ingredient;
+		private final Ingredient ingredient;
 
 		protected IngredientFormEvent(IngredientForm source, Ingredient ingredient) {
 			super(source, false);

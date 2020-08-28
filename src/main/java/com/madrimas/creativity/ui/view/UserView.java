@@ -17,11 +17,8 @@ public class UserView extends HorizontalLayout {
 
 	private final UserController userController;
 
-	private final UserService userService;
-
 	public UserView(UserController userController, UserService userService){
 		this.userController = userController;
-		this.userService = userService;
 
 		form = new UserForm(userService.getCurrentUser());
 		form.addListener(UserForm.SaveEvent.class, this::saveUser);

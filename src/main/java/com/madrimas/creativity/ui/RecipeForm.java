@@ -88,7 +88,7 @@ public class RecipeForm extends FormLayout {
 
 	// Events
 	public static abstract class RecipeFormEvent extends ComponentEvent<RecipeForm> {
-		private Recipe recipe;
+		private final Recipe recipe;
 
 		protected RecipeFormEvent(RecipeForm source, Recipe recipe) {
 			super(source, false);

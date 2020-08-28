@@ -26,13 +26,8 @@ public class RecipeCreationView extends HorizontalLayout implements HasUrlParame
 
 	private final RecipeService recipeService;
 
-	private final IngredientController ingredientController;
-
-	private Recipe recipe;
-
 	public RecipeCreationView(RecipeController recipeController, IngredientController ingredientController, RecipeService recipeService) {
 		this.recipeController = recipeController;
-		this.ingredientController = ingredientController;
 		this.recipeService = recipeService;
 
 		form = new RecipeForm(((List<Ingredient>) ingredientController.getIngredients()));
@@ -64,7 +59,8 @@ public class RecipeCreationView extends HorizontalLayout implements HasUrlParame
 
 	@Override
 	public void setParameter(BeforeEvent event, @OptionalParameter Integer recipeId) {
-		if(recipeId != null){
+		Recipe recipe;
+		if (recipeId != null) {
 			recipe = recipeService.getRecipeFullyInitialized(recipeId);
 		} else {
 			recipe = new Recipe();

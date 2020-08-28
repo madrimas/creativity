@@ -30,9 +30,9 @@ public class IngredientsView extends VerticalLayout {
 	Grid<Ingredient> grid = new Grid<>(Ingredient.class);
 	TextField filterText = new TextField();
 
-	private IngredientController ingredientController;
+	private final IngredientController ingredientController;
 
-	private IngredientService ingredientService;
+	private final IngredientService ingredientService;
 
 	private final UserService userService;
 
