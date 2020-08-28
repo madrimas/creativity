@@ -37,15 +37,15 @@ public class MainLayout extends AppLayout {
 	}
 
 	private void createDrawer() {
-		RouterLink listLink = new RouterLink("List", RecipesView.class);
-		listLink.setHighlightCondition(HighlightConditions.sameLocation());
+		RouterLink recipesLink = new RouterLink("Recipes", RecipesView.class);
+		recipesLink.setHighlightCondition(HighlightConditions.sameLocation());
+		RouterLink ingredientsLink = new RouterLink("Ingredients", IngredientsView.class);
+		ingredientsLink.setHighlightCondition(HighlightConditions.sameLocation());
 		RouterLink userLink = new RouterLink("User", UserView.class);
 		userLink.setHighlightCondition(HighlightConditions.sameLocation());
-		RouterLink ingredientsLink = new RouterLink("Ingredients", IngredientsView.class);
-		userLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-		addToDrawer(new VerticalLayout(listLink));
-		addToDrawer(new VerticalLayout(userLink));
+		addToDrawer(new VerticalLayout(recipesLink));
 		addToDrawer(new VerticalLayout(ingredientsLink));
+		addToDrawer(new VerticalLayout(userLink));
 	}
 }
