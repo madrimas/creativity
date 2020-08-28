@@ -3,17 +3,22 @@ package com.madrimas.creativity.ui.view;
 import com.madrimas.creativity.controller.IngredientController;
 import com.madrimas.creativity.model.Ingredient;
 import com.madrimas.creativity.service.IngredientService;
+import com.madrimas.creativity.service.UserService;
 import com.madrimas.creativity.ui.IngredientForm;
 import com.madrimas.creativity.ui.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
 @Route(value = IngredientsView.ROUTE, layout = MainLayout.class)
 @PageTitle("Ingredients | Creativity")
@@ -29,9 +34,12 @@ public class IngredientsView extends VerticalLayout {
 
 	private IngredientService ingredientService;
 
-	public IngredientsView(IngredientController ingredientController, IngredientService ingredientService) {
+	private final UserService userService;
+
+	public IngredientsView(IngredientController ingredientController, IngredientService ingredientService, UserService userService) {
 		this.ingredientController = ingredientController;
 		this.ingredientService = ingredientService;
+		this.userService = userService;
 
 		addClassName("ingredients-view");
 		setSizeFull();
@@ -95,10 +103,25 @@ public class IngredientsView extends VerticalLayout {
 		if (ingredient == null) {
 			closeEditor();
 		} else {
-			form.setIngredient(ingredient);
-			form.setVisible(true);
-			addClassName("editing");
+			Integer currentUserId = userService.getCurrentUser().getId();
+			if (currentUserId.equals(ingredient.getAuthorId())) {
+				form.setIngredient(ingredient);
+				form.setVisible(true);
+				addClassName("editing");
+			} else {
+				closeEditor();
+				showWarningMessage();
+			}
 		}
+	}
+
+	private void showWarningMessage() {
+		Span warningMessage = new Span("You can modify only yours ingredients");
+		warningMessage.getStyle().set("color", "var(--lumo-error-color");
+		Notification successNotification = new Notification(warningMessage);
+		successNotification.setDuration(5000);
+		successNotification.setPosition(TOP_CENTER);
+		successNotification.open();
 	}
 
 	private void closeEditor() {

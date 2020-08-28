@@ -47,7 +47,7 @@ public class RecipeCreationView extends HorizontalLayout implements HasUrlParame
 		Recipe recipe = event.getRecipe();
 		if (recipe.getId() == null) {
 			recipeController.addRecipe(recipe);
-		} else { // TODO check author
+		} else {
 			recipeController.updateRecipe(recipe);
 		}
 		UI.getCurrent().navigate(RecipesView.ROUTE);

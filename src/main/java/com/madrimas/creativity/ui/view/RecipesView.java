@@ -2,10 +2,13 @@ package com.madrimas.creativity.ui.view;
 
 import com.madrimas.creativity.model.Recipe;
 import com.madrimas.creativity.service.RecipeService;
+import com.madrimas.creativity.service.UserService;
 import com.madrimas.creativity.ui.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -14,6 +17,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.Comparator;
+
+import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
 @Route(value="", layout = MainLayout.class)
 @PageTitle("Recipes | Creativity")
@@ -26,8 +31,11 @@ public class RecipesView extends VerticalLayout {
 
 	private final RecipeService recipeService;
 
-	public RecipesView(RecipeService recipeService) {
+	private final UserService userService;
+
+	public RecipesView(RecipeService recipeService, UserService userService) {
 		this.recipeService = recipeService;
+		this.userService = userService;
 
 		addClassName("recipes-view");
 		setSizeFull();
@@ -52,9 +60,23 @@ public class RecipesView extends VerticalLayout {
 	}
 
 	private void editRecipe(Recipe recipe) {
-		if(recipe != null){
-			UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId());
+		if (recipe != null) {
+			Integer currentUserId = userService.getCurrentUser().getId();
+			if (currentUserId.equals(recipe.getAuthorId())) {
+				UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId());
+			} else {
+				showWarningMessage();
+			}
 		}
+	}
+
+	private void showWarningMessage() {
+		Span warningMessage = new Span("You can modify only yours recipes");
+		warningMessage.getStyle().set("color", "var(--lumo-error-color");
+		Notification successNotification = new Notification(warningMessage);
+		successNotification.setDuration(5000);
+		successNotification.setPosition(TOP_CENTER);
+		successNotification.open();
 	}
 
 	private String getDifficultyNameByLevel(int difficultyLevel) {
