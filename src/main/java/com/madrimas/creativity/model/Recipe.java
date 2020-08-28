@@ -15,9 +15,13 @@ import java.util.Set;
 public class Recipe {
 
 	public interface DifficultyLevel {
-		String EASY = "EASY";
-		String MEDIUM = "MEDIUM";
-		String HARD = "HARD";
+		Integer EASY = 1;
+		Integer MEDIUM = 2;
+		Integer HARD = 3;
+	}
+
+	public enum Difficulty {
+		Easy, Medium, Hard
 	}
 
 	@Id
@@ -37,7 +41,7 @@ public class Recipe {
 	@Column(name = "instruction")
 	private String instruction;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "author_id", insertable = false, updatable = false)
 	private User author;
 
@@ -47,7 +51,7 @@ public class Recipe {
 	@Column(name = "private_only")
 	private boolean privateOnly;
 
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade = {CascadeType.MERGE})
 	@JoinTable(
 			name = "recipe_ingredients",
 			joinColumns = {@JoinColumn(name = "recipe_id")},
@@ -62,7 +66,7 @@ public class Recipe {
 	private LocalDateTime modificationDate;
 
 	@PrePersist
-	public void prePersist(){
+	public void prePersist() {
 		authorId = author.getId();
 	}
 

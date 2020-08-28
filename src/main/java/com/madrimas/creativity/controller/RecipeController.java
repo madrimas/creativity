@@ -2,6 +2,7 @@ package com.madrimas.creativity.controller;
 
 import com.madrimas.creativity.dao.RecipeRepository;
 import com.madrimas.creativity.model.Recipe;
+import com.madrimas.creativity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ public class RecipeController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
+
+	@Autowired
+	UserService userService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Recipe getRecipe(@PathVariable int id) {
@@ -40,7 +44,13 @@ public class RecipeController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Recipe addRecipe(Recipe recipe) {
+		recipe.setAuthor(userService.getCurrentUser());
 		recipe.setCreationDate(LocalDateTime.now());
 		return recipeRepository.save(recipe);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void deleteRecipe(@PathVariable int id) {
+		recipeRepository.deleteById(id);
 	}
 }
