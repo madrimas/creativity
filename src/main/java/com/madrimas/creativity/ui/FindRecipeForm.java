@@ -54,7 +54,7 @@ public class FindRecipeForm extends FormLayout {
 
 	private Component createButtonsLayout() {
 		find.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-		cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+		cancel.addThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
 
 		find.addClickShortcut(Key.ENTER, KeyModifier.CONTROL);
 		cancel.addClickShortcut(Key.ESCAPE);

@@ -12,8 +12,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -23,8 +21,6 @@ import com.vaadin.flow.router.Route;
 
 import java.util.Comparator;
 import java.util.List;
-
-import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
 @Route(value="", layout = MainLayout.class)
 @PageTitle("Recipes | Creativity")
@@ -92,20 +88,11 @@ public class RecipesView extends VerticalLayout {
 		if (recipe != null) {
 			Integer currentUserId = userService.getCurrentUser().getId();
 			if (currentUserId.equals(recipe.getAuthorId())) {
-				UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId()); //TODO allow to check recipe for all users
+				UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId());
 			} else {
-				showWarningMessage();
+				UI.getCurrent().navigate(RecipeDetailsView.class, recipe.getId());
 			}
 		}
-	}
-
-	private void showWarningMessage() {
-		Span warningMessage = new Span("You can modify only yours recipes");
-		warningMessage.getStyle().set("color", "var(--lumo-error-color");
-		Notification successNotification = new Notification(warningMessage);
-		successNotification.setDuration(5000);
-		successNotification.setPosition(TOP_CENTER);
-		successNotification.open();
 	}
 
 	private String getDifficultyNameByLevel(int difficultyLevel) {

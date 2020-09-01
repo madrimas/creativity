@@ -45,7 +45,7 @@ public class IngredientForm extends FormLayout {
 	private Component createButtonsLayout() {
 		save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 		delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+		close.addThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
 
 		save.addClickShortcut(Key.ENTER, KeyModifier.CONTROL);
 		close.addClickShortcut(Key.ESCAPE);

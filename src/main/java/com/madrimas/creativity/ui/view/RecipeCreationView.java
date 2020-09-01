@@ -30,7 +30,7 @@ public class RecipeCreationView extends HorizontalLayout implements HasUrlParame
 		this.recipeController = recipeController;
 		this.recipeService = recipeService;
 
-		form = new RecipeForm(((List<Ingredient>) ingredientController.getIngredients()));
+		form = new RecipeForm(((List<Ingredient>) ingredientController.getIngredients()), true);
 		form.addListener(RecipeForm.SaveEvent.class, this::addRecipe);
 		form.addListener(RecipeForm.DeleteEvent.class, this::deleteRecipe);
 		form.addListener(RecipeForm.CloseEvent.class, e -> closeEditor());

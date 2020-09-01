@@ -36,26 +36,54 @@ public class RecipeForm extends FormLayout {
 	Binder<Recipe> binder = new BeanValidationBinder<>(Recipe.class);
 	private Recipe recipe;
 
-	public RecipeForm(List<Ingredient> availableIngredients) {
+	public RecipeForm(List<Ingredient> availableIngredients, boolean editable) {
 		addClassName("recipe-form");
 
 		binder.readBean(recipe);
 
+		if(editable){
+			constructEditableRecipe();
+		} else{
+			constructReadOnlyRecipe();
+		}
+
+		difficulty.setItems(Recipe.Difficulty.values());
+		ingredients.setItems(availableIngredients);
+		ingredients.setItemLabelGenerator(Ingredient::getName);
+	}
+
+	private void constructEditableRecipe() {
 		binder.forField(difficulty)
 				.withConverter(new DifficultyToLevelConverter())
 				.bind(Recipe::getDifficulty, Recipe::setDifficulty);
 		binder.bindInstanceFields(this);
-		difficulty.setItems(Recipe.Difficulty.values());
-		ingredients.setItems(availableIngredients);
-		ingredients.setItemLabelGenerator(Ingredient::getName);
 
-		add(title, difficulty, minutes, instruction, privateOnly, this.ingredients, createButtonsLayout());
+		add(title, difficulty, minutes, instruction, privateOnly, ingredients, createEditableButtonsLayout());
 	}
 
-	private Component createButtonsLayout() {
+	private void constructReadOnlyRecipe() {
+
+		binder.forField(title)
+				.bind(Recipe::getTitle, null);
+		binder.forField(difficulty)
+				.withConverter(new DifficultyToLevelConverter())
+				.bind(Recipe::getDifficulty, null);
+		binder.forField(minutes)
+				.bind(Recipe::getMinutes, null);
+		binder.forField(instruction)
+				.bind(Recipe::getInstruction, null);
+		binder.forField(ingredients)
+				.bind(Recipe::getIngredients, null);
+		binder.forField(privateOnly)
+				.bind(Recipe::isPrivateOnly, null);
+
+		add(title, difficulty, minutes, instruction, privateOnly, ingredients, createReadOnlyButtonsLayout());
+	}
+
+	private Component createEditableButtonsLayout() {
 		save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 		delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+		close.addThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
 
 		save.addClickShortcut(Key.ENTER, KeyModifier.CONTROL);
 		close.addClickShortcut(Key.ESCAPE);
@@ -67,6 +95,14 @@ public class RecipeForm extends FormLayout {
 		binder.addStatusChangeListener(evt -> save.setEnabled(binder.isValid()));
 
 		return new HorizontalLayout(save, delete, close);
+	}
+
+	private Component createReadOnlyButtonsLayout() {
+		close.addThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
+		close.addClickShortcut(Key.ESCAPE);
+		close.addClickListener(click -> fireEvent(new CloseEvent(this)));
+
+		return new HorizontalLayout(close);
 	}
 
 	public void setRecipe(Recipe recipe) {
