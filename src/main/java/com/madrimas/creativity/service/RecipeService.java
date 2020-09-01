@@ -6,13 +6,18 @@ import com.madrimas.creativity.model.Recipe;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
 public class RecipeService {
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Autowired
 	RecipeRepository recipeRepository;
@@ -32,8 +37,10 @@ public class RecipeService {
 		}
 	}
 
-	public Recipe getRecipeFullyInitialized(Integer recipeId){
-		EntityManager entityManager = hibernateService.getHibernateFactory().unwrap(SessionFactory.class).createEntityManager();
-		return entityManager.find(Recipe.class, recipeId);
+	@Transactional
+	public Recipe getRecipeFullyInitialized(Integer recipeId) {
+		Recipe recipe = entityManager.find(Recipe.class, recipeId);
+		recipe.getIngredients().size();
+		return recipe;
 	}
 }
