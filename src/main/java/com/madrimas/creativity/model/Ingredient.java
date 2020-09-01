@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -42,8 +43,23 @@ public class Ingredient {
 	private LocalDateTime modificationDate;
 
 	@PrePersist
-	public void prePersist(){
+	public void prePersist() {
 		authorId = author.getId();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Ingredient that = (Ingredient) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(description, that.description) &&
+				Objects.equals(authorId, that.authorId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, description, authorId);
+	}
 }

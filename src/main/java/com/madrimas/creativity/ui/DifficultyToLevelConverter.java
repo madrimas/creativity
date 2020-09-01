@@ -9,6 +9,10 @@ public class DifficultyToLevelConverter implements Converter<Recipe.Difficulty, 
 
 	@Override
 	public Result<Integer> convertToModel(Recipe.Difficulty value, ValueContext context) {
+		if (value == null) {
+			return Result.ok(null);
+		}
+
 		Integer difficultyLevel = switch (value) {
 			case Easy -> Recipe.DifficultyLevel.EASY;
 			case Medium -> Recipe.DifficultyLevel.MEDIUM;
@@ -24,7 +28,7 @@ public class DifficultyToLevelConverter implements Converter<Recipe.Difficulty, 
 			case 1 -> Recipe.Difficulty.Easy;
 			case 2 -> Recipe.Difficulty.Medium;
 			case 3 -> Recipe.Difficulty.Hard;
-			default -> throw new IllegalStateException("Unexpected value: " + value);
+			default -> null;
 		};
 	}
 }

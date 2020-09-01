@@ -24,14 +24,14 @@ public class RecipeForm extends FormLayout {
 
 	TextField title = new TextField("Title");
 	ComboBox<Recipe.Difficulty> difficulty = new ComboBox<>("Difficulty"); //Vaadin issue #8858;
-	IntegerField minutes = new IntegerField("Time");
+	IntegerField minutes = new IntegerField("Time (minutes)");
 	TextArea instruction = new TextArea("Instruction");
 	Checkbox privateOnly = new Checkbox("Private recipe");
 	MultiselectComboBox<Ingredient> ingredients = new MultiselectComboBox<>("Ingredients");
 
-	com.vaadin.flow.component.button.Button save = new com.vaadin.flow.component.button.Button("Save");
-	com.vaadin.flow.component.button.Button delete = new com.vaadin.flow.component.button.Button("Delete");
-	com.vaadin.flow.component.button.Button close = new Button("Cancel");
+	Button save = new Button("Save");
+	Button delete = new Button("Delete");
+	Button close = new Button("Cancel");
 
 	Binder<Recipe> binder = new BeanValidationBinder<>(Recipe.class);
 	private Recipe recipe;

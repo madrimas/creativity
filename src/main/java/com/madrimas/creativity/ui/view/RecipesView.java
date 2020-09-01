@@ -1,12 +1,17 @@
 package com.madrimas.creativity.ui.view;
 
+import com.madrimas.creativity.controller.IngredientController;
+import com.madrimas.creativity.model.Ingredient;
 import com.madrimas.creativity.model.Recipe;
+import com.madrimas.creativity.pojo.FindRecipe;
 import com.madrimas.creativity.service.RecipeService;
 import com.madrimas.creativity.service.UserService;
+import com.madrimas.creativity.ui.FindRecipeForm;
 import com.madrimas.creativity.ui.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,6 +22,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.Comparator;
+import java.util.List;
 
 import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
@@ -29,11 +35,13 @@ public class RecipesView extends VerticalLayout {
 	Grid<Recipe> grid = new Grid<>(Recipe.class);
 	TextField filterText = new TextField();
 
+	private final FindRecipeForm form;
+
 	private final RecipeService recipeService;
 
 	private final UserService userService;
 
-	public RecipesView(RecipeService recipeService, UserService userService) {
+	public RecipesView(RecipeService recipeService, UserService userService, IngredientController ingredientController) {
 		this.recipeService = recipeService;
 		this.userService = userService;
 
@@ -41,8 +49,29 @@ public class RecipesView extends VerticalLayout {
 		setSizeFull();
 		configureGrid();
 
-		add(getToolBar(), grid);
+		form = new FindRecipeForm(((List<Ingredient>) ingredientController.getIngredients()));
+		form.addListener(FindRecipeForm.FindEvent.class, this::findRecipes);
+		form.addListener(FindRecipeForm.CloseEvent.class, e -> closeSearchTab());
+		form.setVisible(false);
+
+		Div content = new Div(grid, form);
+		content.addClassName("content");
+		content.setSizeFull();
+
+		add(getToolBar(), content);
 		updateList();
+	}
+
+	private void findRecipes(FindRecipeForm.FindEvent event) {
+		List<Recipe> filteredRecipes = recipeService.findRecipes(event.getRecipe());
+		updateList(filteredRecipes);
+	}
+
+
+	private void closeSearchTab() {
+		form.setFindRecipe(null);
+		form.setVisible(false);
+		removeClassName("editing");
 	}
 
 	private void configureGrid() {
@@ -63,7 +92,7 @@ public class RecipesView extends VerticalLayout {
 		if (recipe != null) {
 			Integer currentUserId = userService.getCurrentUser().getId();
 			if (currentUserId.equals(recipe.getAuthorId())) {
-				UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId());
+				UI.getCurrent().navigate(RecipeCreationView.class, recipe.getId()); //TODO allow to check recipe for all users
 			} else {
 				showWarningMessage();
 			}
@@ -95,10 +124,26 @@ public class RecipesView extends VerticalLayout {
 		filterText.addValueChangeListener(e -> updateList());
 
 		Button addRecipeButton = new Button("Add recipe", click -> addRecipe());
+		Button findRecipesButton = new Button("Find recipes", click -> searchRecipes());
 
-		HorizontalLayout toolbar = new HorizontalLayout(filterText, addRecipeButton);
+		HorizontalLayout toolbar = new HorizontalLayout(filterText, addRecipeButton, findRecipesButton);
 		toolbar.addClassName("toolbar");
 		return toolbar;
+	}
+
+	private void searchRecipes() {
+		grid.asSingleSelect().clear();
+		searchRecipeForm(new FindRecipe());
+	}
+
+	private void searchRecipeForm(FindRecipe findRecipe) {
+		if (findRecipe == null) {
+			closeSearchTab();
+		} else {
+			form.setFindRecipe(findRecipe);
+			form.setVisible(true);
+			addClassName("editing");
+		}
 	}
 
 	private void addRecipe() {
@@ -107,6 +152,10 @@ public class RecipesView extends VerticalLayout {
 
 	private void updateList() {
 		grid.setItems(recipeService.getRecipesForCurrentUser(filterText.getValue()));
+	}
+
+	private void updateList(List<Recipe> filteredRecipes) {
+		grid.setItems(filteredRecipes);
 	}
 
 }

@@ -22,7 +22,7 @@ a[highlight] {
     flex: 2;
 }
 
-.recipes-view .recipes-form {
+.recipes-view .recipes-find-form {
     flex: 1;
     padding: var(--lumo-space-m);
 }

@@ -104,7 +104,8 @@ public class IngredientsView extends VerticalLayout {
 			closeEditor();
 		} else {
 			Integer currentUserId = userService.getCurrentUser().getId();
-			if (currentUserId.equals(ingredient.getAuthorId())) {
+			Integer ingredientAuthorId = ingredient.getAuthorId();
+			if (ingredientAuthorId == null || currentUserId.equals(ingredientAuthorId)) {
 				form.setIngredient(ingredient);
 				form.setVisible(true);
 				addClassName("editing");
