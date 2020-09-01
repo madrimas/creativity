@@ -48,7 +48,6 @@ public class RecipeDAO implements RecipeRepositoryCustom {
 				case Lower -> cb.lessThan(difficultyPath, difficulty);
 				case Equal -> cb.equal(difficultyPath, difficulty);
 				case Greater -> cb.greaterThan(difficultyPath, difficulty);
-				default -> null;
 			};
 
 			predicates.add(predicate);

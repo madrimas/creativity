@@ -15,8 +15,6 @@ public class FindRecipe {
 		Lower, Equal, Greater
 	}
 
-	private Integer id;
-
 	private String title;
 
 	private Compare difficultyCompare;
