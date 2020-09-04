@@ -1,12 +1,17 @@
 package com.madrimas.creativity.security;
 
+import com.madrimas.creativity.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity 
 @Configuration 
@@ -18,8 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/login";
     private static final String REGISTER_URL = "/register";
 
-    @Autowired
-    CustomAuthenticationProvider customAuthenticationProvider;
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -40,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(customAuthenticationProvider);
+		auth.authenticationProvider(authProvider());
 	}
 
 	@Override
@@ -56,6 +61,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				"/images/**",
 				"/styles/**",
 				"/h2-console/**");
+	}
+
+	@Bean
+	public DaoAuthenticationProvider authProvider() {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setPasswordEncoder(encoder());
+		return authenticationProvider;
+	}
+
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder(11);
 	}
 
 }

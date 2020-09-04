@@ -3,6 +3,7 @@ package com.madrimas.creativity.controller;
 import com.madrimas.creativity.dao.UserRepository;
 import com.madrimas.creativity.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,9 @@ public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable int id) {
@@ -40,6 +44,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public User addUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRegistrationDate(LocalDateTime.now());
 		return userRepository.save(user);
 	}
