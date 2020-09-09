@@ -1,0 +1,55 @@
+/*
+   CSS styling examples for the Vaadin app.
+   Visit https://vaadin.com/docs/flow/theme/theming-overview.html and
+   https://vaadin.com/themes/lumo for more information.
+*/
+
+a[highlight] {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.header {
+    padding: 0 var(--lumo-space-m);
+}
+
+/* Recipes view */
+.recipes-view .content {
+    display: flex;
+}
+
+.recipes-view .recipes-grid {
+    flex: 2;
+}
+
+.recipes-view .recipes-find-form {
+    flex: 1;
+    padding: var(--lumo-space-m);
+}
+
+@media all and (max-width: 1100px) {
+    .recipes-view.editing .toolbar,
+    .recipes-view.editing .recipes-grid {
+        display: none;
+    }
+}
+
+.ingredients-view .content {
+    display: flex;
+}
+
+.ingredients-view .ingredient-grid {
+    flex: 1;
+}
+
+.ingredients-view .ingredient-form {
+    flex: 1;
+    padding: var(--lumo-space-m);
+}
+
+@media all and (max-width: 1100px) {
+    .ingredients-view.editing .toolbar,
+    .ingredients-view.editing .ingredient-grid {
+        display: none;
+    }
+}
