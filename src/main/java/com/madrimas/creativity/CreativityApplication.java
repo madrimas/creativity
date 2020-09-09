@@ -9,13 +9,6 @@ public class CreativityApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CreativityApplication.class, args);
-//		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("creativity");
-//		EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//		entityManager.close();
-//		entityManagerFactory.close();
-//
-//		System.out.println("Done!");
 	}
 
 }
