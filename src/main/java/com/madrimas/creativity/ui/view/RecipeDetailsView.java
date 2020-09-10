@@ -15,7 +15,7 @@ import com.vaadin.flow.router.Route;
 import java.util.List;
 
 @Route(value = RecipeDetailsView.ROUTE, layout = MainLayout.class)
-@PageTitle("Recipe details | Creativity")
+@PageTitle("Recipe details | Cookbook")
 public class RecipeDetailsView extends HorizontalLayout implements HasUrlParameter<Integer> {
 
 	public static final String ROUTE = "recipeDetails";

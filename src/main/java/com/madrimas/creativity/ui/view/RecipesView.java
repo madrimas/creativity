@@ -23,7 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Route(value="", layout = MainLayout.class)
-@PageTitle("Recipes | Creativity")
+@PageTitle("Recipes | Cookbook")
 public class RecipesView extends VerticalLayout {
 
 	public static final String ROUTE = "";

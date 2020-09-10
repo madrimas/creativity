@@ -14,7 +14,7 @@ import com.vaadin.flow.router.Route;
 import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
 @Route(value = RegisterView.ROUTE)
-@PageTitle("Register | Creativity")
+@PageTitle("Register | Cookbook")
 public class RegisterView extends HorizontalLayout {
 
 	public static final String ROUTE = "register";

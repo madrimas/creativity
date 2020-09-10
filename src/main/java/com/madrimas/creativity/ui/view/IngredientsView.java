@@ -21,7 +21,7 @@ import com.vaadin.flow.router.Route;
 import static com.vaadin.flow.component.notification.Notification.Position.TOP_CENTER;
 
 @Route(value = IngredientsView.ROUTE, layout = MainLayout.class)
-@PageTitle("Ingredients | Creativity")
+@PageTitle("Ingredients | Cookbook")
 public class IngredientsView extends VerticalLayout {
 
 	public static final String ROUTE = "ingredient";

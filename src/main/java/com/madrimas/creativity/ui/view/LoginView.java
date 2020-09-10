@@ -35,7 +35,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 	private void addLoginForm() {
 		login.setForgotPasswordButtonVisible(false);
 		login.setAction("login");
-		add(new H1("Creativity"), login);
+		add(new H1("Cookbook"), login);
 	}
 
 	private void addRegisterButton() {
