@@ -23,7 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Route(value="", layout = MainLayout.class)
-@PageTitle("Recipes | Creativity")
+@PageTitle("Recipes | Cookbook")
 public class RecipesView extends VerticalLayout {
 
 	public static final String ROUTE = "";
@@ -73,7 +73,7 @@ public class RecipesView extends VerticalLayout {
 	private void configureGrid() {
 		grid.addClassName("recipes-grid");
 		grid.setSizeFull();
-		grid.setColumns("title", "minutes", "instruction");
+		grid.setColumns("title", "minutes");
 		grid.addColumn(recipe -> {
 			Integer difficulty = recipe.getDifficulty();
 			return difficulty == null ? "-" : getDifficultyNameByLevel(difficulty);

@@ -62,4 +62,8 @@ public class Ingredient {
 	public int hashCode() {
 		return Objects.hash(id, name, description, authorId);
 	}
+
+	public String getLabel() {
+		return name + " " + description;
+	}
 }

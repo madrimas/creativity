@@ -49,7 +49,7 @@ public class RecipeForm extends FormLayout {
 
 		difficulty.setItems(Recipe.Difficulty.values());
 		ingredients.setItems(availableIngredients);
-		ingredients.setItemLabelGenerator(Ingredient::getName);
+		ingredients.setItemLabelGenerator(Ingredient::getLabel);
 	}
 
 	private void constructEditableRecipe() {

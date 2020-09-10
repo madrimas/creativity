@@ -10,7 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Route(value="user", layout = MainLayout.class)
-@PageTitle("Users | Creativity")
+@PageTitle("Users | Cookbook")
 public class UserView extends HorizontalLayout {
 
 	private final UserForm form;

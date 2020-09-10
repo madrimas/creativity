@@ -23,7 +23,7 @@ public class MainLayout extends AppLayout {
 	}
 
 	private void createHeader() {
-		H1 logo = new H1("Creativity");
+		H1 logo = new H1("Cookbook");
 
 		Anchor logout = new Anchor("logout", "Log out");
 
